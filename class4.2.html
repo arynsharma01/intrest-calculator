@@ -1,0 +1,32 @@
+<html>
+    <script>
+        let time ;
+        function rebound(){
+            clearTimeout(time);
+            time = setTimeout(()  => {
+                calculate()
+            },100)
+        }
+        async  function calculate(){
+            let principal =  document.getElementById("principal").value;
+            let rate =  document.getElementById("rate").value;
+            let time =  document.getElementById("time").value;
+           
+            const res = await fetch("http://localhost:3003/simpleinterset?principal="+principal  +"&rate="+rate +"&time="+time)
+            const final  = await res.text() ;
+            
+            console.log(final);
+            document.getElementById("final").innerHTML ="21 din me pysa double " +  (parseInt(final)+parseInt(principal))
+        }
+    </script>
+    <body>
+
+        <input id="principal" type="text" placeholder="Enter the value of principal " oninput="rebound()">
+        <br> </br>
+        <input id="rate" type="text" placeholder="Enter the rate oif intrest " oninput="rebound()" >
+        <br> </br>
+        <input id="time" type="text"  placeholder="Enter the time  period  "oninput="rebound()">
+        <div id="final"></div>
+
+    </body>
+</html>
